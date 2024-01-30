@@ -21,4 +21,4 @@
 
 
 # 參考資料
-程式碼由　Boris　@　http://www.youtube.com/borispcp　設計。
+程式碼由　Boris　@　http://www.youtube.com/borispcp 設計。
