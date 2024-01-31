@@ -13,17 +13,17 @@
 
 5.資料都會存在google drive上，目前檔案命名方式沒有修改，待下次改辦修正。
 
-# # 注意
+## 注意
 1.要關閉Webhook redelivery，免得Line與google會出現問題。
 
 2.要允許Allow bot to join group chats，免得加入後又離開。
 
-# # 紀錄表格如下
+## 紀錄表格如下
 ![image](https://github.com/ss1111119/Linebackup/assets/5415354/bc1c473e-1327-48ad-9790-3ea3bd05916d)
 
 檔案存放方式如下
 ![image](https://github.com/ss1111119/Linebackup/assets/5415354/51ed66d3-ae4b-416d-a1a3-0192eea2b6e0)
 
 
-# # 參考資料
+## 參考資料
 程式碼由　Boris　@　http://www.youtube.com/borispcp 設計。
