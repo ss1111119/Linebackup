@@ -81,27 +81,25 @@ function doPost(e) {
         LineText = "檔案";
         var GoogleDrive = DriveApp;
         var rootFolder = GoogleDrive.getFolderById(rootFolderID);
+        var destinationFolder;
 
+        // 檢查消息來源並創建或獲取對應的文件夾
         if (groupId != "") {
-          try {
-            var destinationFolder = rootFolder.getFoldersByName(groupId).next();
-          } catch (err) {
-            var destinationFolder = rootFolder.createFolder(groupId);
-          }
+          destinationFolder = getOrCreateFolder(rootFolder, groupId);
         } else {
-          try {
-            var destinationFolder = rootFolder.getFoldersByName(userId).next();
-          } catch (err) {
-            var destinationFolder = rootFolder.createFolder(userId);
-          }
+          destinationFolder = getOrCreateFolder(rootFolder, userId);
         }
 
         var messageId = userData.events[i].message.id;
         var fileData = getFileData(CHANNEL_ACCESS_TOKEN, messageId);
         var fileBlob = fileData.getBlob();
-        var fileName = prefixFileName + userId + "-" + messageId;
-        var file = destinationFolder.createFile(fileBlob.setName(fileName));
-        var fileLocation = file.getUrl();
+
+        // 從 LINE 事件中提取檔案名稱
+        var originalFileName = userData.events[i].message.fileName; // LINE 訊息中檔案名稱的屬性
+
+        // 使用原始檔案名稱創建檔案
+        var file = destinationFolder.createFile(fileBlob.setName(originalFileName));
+        fileLocation = file.getUrl();
 
         break;
 
@@ -119,8 +117,10 @@ function doPost(e) {
 
         var messageId = userData.events[i].message.id;
         var fileData = getFileData(CHANNEL_ACCESS_TOKEN, messageId);
-        var fileBlob = fileData.getBlob().setName(prefixFileName + messageId + ".jpg");
-        var file = destinationFolder.createFile(fileBlob);
+        var fileBlob = fileData.getBlob();
+        var originalFileName = messageId + ".jpg"; // 假設檔案格式為 .jpg，因為LINE不提供原始檔案名稱
+
+        var file = destinationFolder.createFile(fileBlob.setName(originalFileName));
         fileLocation = file.getUrl();
 
         break;
@@ -139,12 +139,13 @@ function doPost(e) {
 
         var messageId = userData.events[i].message.id;
         var fileData = getFileData(CHANNEL_ACCESS_TOKEN, messageId);
-        var fileBlob = fileData.getBlob().setName(prefixFileName + messageId + ".mp4");
-        var file = destinationFolder.createFile(fileBlob);
+        var fileBlob = fileData.getBlob();
+        var originalFileName = messageId + ".mp4"; // 假設檔案格式為 .mp4，因為LINE不提供原始檔案名稱
+
+        var file = destinationFolder.createFile(fileBlob.setName(originalFileName));
         fileLocation = file.getUrl();
 
         break;
-
 
       default:
         LineText = "不支援的訊息類型";
