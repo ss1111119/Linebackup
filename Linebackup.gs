@@ -181,10 +181,11 @@ function getFileData(CHANNEL_ACCESS_TOKEN, fileID) {
     var url = "https://api-data.line.me/v2/bot/message/" + fileID + "/content";
     try {
         var response = UrlFetchApp.fetch(url, {
-            headers: {
-                Authorization: "Bearer " + CHANNEL_ACCESS_TOKEN,
-            },
-            method: "get",
+          "method": "get",
+          "headers": {
+            "Authorization": "Bearer " + CHANNEL_ACCESS_TOKEN
+          },
+          "muteHttpExceptions": true
         });
         return response;
     } catch (error) {
